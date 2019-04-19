@@ -33,12 +33,13 @@
                     cvv: $scope.cvv
                 };
                 console.log("user getting post is", user);
+
                 UserService.register(user)
                     .then(function (response) {
                         alert("Registration successful!");
                         $window.location.href = '/';
                     }, function (err) {
-                        if (err.data.password == 'Passwords do not match') {
+                        if (err.data.password === 'Passwords do not match') {
                             alert("Passwords do not match");
                         }
                     });
