@@ -43,7 +43,6 @@
             }
             function getFeaturedResults() {
                 // body
-                console.log("function called");
                 RestaurantService.getFeaturedRestaurants().then(
                     function (response) {
                         $scope.featuredRestaurants = response.data;
