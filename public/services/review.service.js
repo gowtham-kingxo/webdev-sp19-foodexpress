@@ -26,11 +26,17 @@
         function removeReview(id) {
             return $http.delete(baseUrl + "/" + id);
         }
-        function createReview(review){
+
+        function createReview(review) {
             return $http.post(baseUrl, review);
         }
-        function updateReview(id,review){
+
+        function updateReview(id, review) {
             return $http.put(baseUrl + "/" + id, review);
+        }
+
+        function getLastReview() {
+            return $http.get(baseUrl + "/last");
         }
     }
 })();

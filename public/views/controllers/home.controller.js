@@ -39,7 +39,10 @@
             };
 
             function getLastReview() {
-
+                return ReviewService.getLastReview()
+                    .then(response =>
+                        $scope.lastReview = response.data
+                    )
             }
             function getFeaturedResults() {
                 RestaurantService.getFeaturedRestaurants().then(
