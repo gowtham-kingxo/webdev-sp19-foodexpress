@@ -32,8 +32,5 @@
         function updateReview(id,review){
             return $http.put(baseUrl + "/" + id, review);
         }
-        function getLastReview() {
-
-        }
     }
 })();

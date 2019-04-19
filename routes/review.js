@@ -51,6 +51,15 @@ router.get("/:id", async (req, res) => {
         res.status(400).send(err);
     }
 });
+router.get("/", async (req, res) => {
+    try {
+        const reviews = await Review.find().populate('user').populate('restaurant');
+        res.send(reviews);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+// get last review
 
 // Update review
 router.put("/:id", async (req, res) => {
