@@ -40,7 +40,15 @@ router.get("/", async (req, res) => {
         res.status(400).send(err);
     }
 });
-
+// get last review
+router.get("/last", async (req, res) => {
+    try {
+        const review = await Review.find({}, {}, {sort: {"_id": -1}}).limit(1).populate('user').populate('restaurant');
+        res.send(review);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
 // get by id
 router.get("/:id", async (req, res) => {
     try {
@@ -52,15 +60,6 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-// get last review
-router.get("/last", async (req, res) => {
-    try {
-        const reviews = await Review.findOne({ field: -_id }).populate('user').populate('restaurant');
-        res.send(reviews);
-    } catch (err) {
-        res.status(400).send(err);
-    }
-});
 
 // Update review
 router.put("/:id", async (req, res) => {
