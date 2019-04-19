@@ -1,3 +1,3 @@
 module.exports = {
-  mongoURI: 'mongodb+srv://gowtham:foodexpress123@cluster0-vrqe6.mongodb.net/test?retryWrites=true'
+  mongoURI: 'mongodb+srv://light:light@webdevsp19-sqyff.mongodb.net/test?retryWrites=true'
 };
