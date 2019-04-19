@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const user = require('./routes/user');
 const restaurant = require('./routes/restaurant');
@@ -30,7 +31,11 @@ app.use(function(req, res, next) {
         res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
         next();
 });
-// app.get('/', (req, res) => res.send('Hello world whatsup'));
+
+app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname + '/public/index.html'));
+});
+
 app.use('/api/user', user);
 app.use('/api/restaurant', restaurant);
 app.use('/api/event', event);

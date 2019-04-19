@@ -41,7 +41,6 @@
                 ReviewService.getLastReview()
                     .then(response => {
                             $scope.lastReview = response.data;
-                            console.log("last review" + $scope.lastReview);
                         }, err =>
                             console.log(err)
                     )
@@ -52,7 +51,6 @@
                     function (response) {
                         $scope.featuredRestaurants = response.data;
                         $scope.featuredLoading = false;
-                        console.log("featuredRestaurants", $scope.featuredRestaurants);
                     },
                     function (err) {
                         console.log(err);

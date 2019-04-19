@@ -15,10 +15,11 @@
       </div>
       <div>
         <div class="row detail-options-wrap">
+
+          <p>{{restaurants}}</p>
           <div
             class="col-sm-6 col-lg-12 col-xl-6 featured-responsive"
-            ng-repeat="restaurant in restaurants"
-          >
+            ng-repeat="restaurant in restaurants">
             <div class="featured-place-wrap">
               <a ng-click="viewRestaurant(restaurant)">
                 <img src={{restaurant.image_url}} class="restaurant-image" alt="#" />
