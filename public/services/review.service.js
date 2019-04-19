@@ -10,7 +10,8 @@
             getReview: getReview,
             removeReview: removeReview,
             createReview: createReview,
-            updateReview: updateReview
+            updateReview: updateReview,
+            getLastReview: getLastReview
         };
         return api;
 
@@ -30,6 +31,9 @@
         }
         function updateReview(id,review){
             return $http.put(baseUrl + "/" + id, review);
+        }
+        function getLastReview() {
+
         }
     }
 })();
