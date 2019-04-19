@@ -1,6 +1,6 @@
 const RestaurantModel = require("../models/Restaurant.schema.server");
 const yelp = require("yelp-fusion");
-var sleep = require("sleep");
+//var sleep = require("sleep");
 const API_KEY = process.env.API_KEY;
 const client = yelp.client(API_KEY);
 
@@ -12,7 +12,7 @@ async function populateRestaurants() {
         let count = 0
         while(count<5){
             try{
-                sleep.sleep(3);
+                //sleep.sleep(3);
                 const response = await client.search({
                     location: location,
                     limit: 50,

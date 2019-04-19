@@ -6,7 +6,7 @@ const Review = require("../models/Review.schema.server");
 const Restaurant = require("../models/Restaurant.schema.server");
 const User = require("../models/User.schema.server");
 const yelp = require("yelp-fusion");
-var sleep = require("sleep");
+//var sleep = require("sleep");
 const _ = require("underscore");
 // To set environment variable do "export API_KEY=value" in terminal
 const API_KEY = process.env.API_KEY;
@@ -47,7 +47,7 @@ async function populateReviews() {
   for (const restaurant of restaurants) {
     try {
       console.log("in function now it will make a call to api");
-      sleep.sleep(1);
+      //sleep.sleep(1);
       const result = await client.reviews(restaurant.id);
       console.log("result received");
       const yelpReviews = result.jsonBody.reviews;
