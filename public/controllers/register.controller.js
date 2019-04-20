@@ -33,12 +33,63 @@
                     cvv: $scope.cvv
                 };
                 console.log("user getting post is", user);
+
+                if(user.username.length === 0 ){
+                    alert("All fields are required");
+                    return;
+                }
+
+                if(!user.email){
+                    alert("All fields are required");
+                    return;
+                }
+
+                if(!user.streetaddress){
+                    alert("All fields are required");
+                    return;
+                }
+
+                if(!user.streetaddress2){
+                    alert("All fields are required");
+                    return;
+                }
+
+                if(!user.city){
+                    alert("All fields are required");
+                    return;
+                }
+
+                if(!user.state){
+                    alert("All fields are required");
+                    return;
+                }
+
+                if(!user.country){
+                    alert("All fields are required");
+                    return;
+                }
+
+                if(!user.zipcode){
+                    alert("All fields are required");
+                    return;
+                }
+
+                if(!user.phone){
+                    alert("All fields are required");
+                    return;
+                }
+
+                if(!user.userType){
+                    alert("All fields are required");
+                    return;
+                }
+
                 UserService.register(user)
                     .then(function (response) {
                         alert("Registration successful!");
                         $window.location.href = '/';
                     }, function (err) {
-                        if (err.data.password == 'Passwords do not match') {
+                        if (err.data.password === 'Passwords do not match') {
                             alert("Passwords do not match");
                         }
                     });

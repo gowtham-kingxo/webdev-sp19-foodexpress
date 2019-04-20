@@ -27,7 +27,6 @@ router.post('/register', (req, res) => {
                     username: 'Username already taken'
                 });
             } else {
-
                 if (req.body.password == req.body.confirmpassword) {
 
                     let user = {
@@ -255,7 +254,6 @@ router.get("/search/:username", async (req, res) => {
 // GET REQUEST
 router.get("/:id", async (req, res) => {
     try {
-
         let id = req.params.id;
         console.log(id);
         // const user = await User.findOne({_id: id});

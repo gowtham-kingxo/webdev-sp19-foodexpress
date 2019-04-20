@@ -17,7 +17,6 @@
         })();
 
         function login() {
-            console.log("in login");
             vm.dataLoading = true;
             LoginService.login(vm.username, vm.password)
             .then(function (response){
@@ -26,7 +25,8 @@
                 $rootScope.currentUser = LoginService.getCookieData(); 
                 $location.path('/');
             }, function (err) {
-                console.log(err);
+                vm.dataLoading = false;
+                alert("There is no user with your given credentials!");
                 FlashService.createFailFlash(err.message);
             });
             

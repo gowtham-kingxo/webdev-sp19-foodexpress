@@ -9,9 +9,9 @@ router.post("/", async (req, res) => {
     try {
         let userId = req.body.user;
         let restaurantId = req.body.restaurant;
-        const user = await User.findOne({ _id: userId });
+        const user = await User.findOne({_id: userId});
         if (!user) return res.status(404).send("Invalid User");
-        const restaurant = await Restaurant.findOne({ _id: restaurantId });
+        const restaurant = await Restaurant.findOne({_id: restaurantId});
         if (!restaurant) return res.status(404).send("Invalid Restaturant");
         const review = new Review({
             user: userId,
@@ -40,33 +40,42 @@ router.get("/", async (req, res) => {
         res.status(400).send(err);
     }
 });
-
+// get last review
+router.get("/last", async (req, res) => {
+    try {
+        const review = await Review.find({}, {}, {sort: {"_id": -1}}).limit(1).populate('user').populate('restaurant');
+        res.send(review);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
 // get by id
 router.get("/:id", async (req, res) => {
     try {
         let id = req.params.id;
-        const review = await Review.find({ _id: id }).populate('restaurant').populate('user');
+        const review = await Review.find({_id: id}).populate('restaurant').populate('user');
         res.send(review);
     } catch (err) {
         res.status(400).send(err);
     }
 });
 
+
 // Update review
 router.put("/:id", async (req, res) => {
     try {
         let id = req.params.id;
-        var review = await Review.find({ _id: id });
+        var review = await Review.find({_id: id});
         review = review[0];
         if (!review) return res.status(404).send("Object not found");
         let userId = req.body.user;
         let restaurantId = req.body.restaurant;
-        const user = await User.findOne({ _id: userId });
+        const user = await User.findOne({_id: userId});
         if (!user) return res.status(404).send("Invalid User");
-        const restaurant = await Restaurant.findOne({ _id: restaurantId });
+        const restaurant = await Restaurant.findOne({_id: restaurantId});
         if (!restaurant) return res.status(404).send("Invalid Restaturant");
         Review.updateOne(
-            { _id: id },
+            {_id: id},
             {
                 $set: {
                     user: userId,
@@ -80,7 +89,7 @@ router.put("/:id", async (req, res) => {
             }
         )
             .then(async () => {
-                var result = await Review.find({ _id: id }).populate('user').populate('restaurant');
+                var result = await Review.find({_id: id}).populate('user').populate('restaurant');
                 res.send(result[0]);
             })
             .catch(err => {
@@ -95,10 +104,10 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     try {
         let id = req.params.id;
-        var review = await Review.find({ _id: id });
+        var review = await Review.find({_id: id});
         review = review[0];
         if (!review) return res.status(404).send("Object not found");
-        const result = await Review.deleteOne({ _id: review._id });
+        const result = await Review.deleteOne({_id: review._id});
         res.send(result);
     } catch (err) {
         res.status(400).send(err);
@@ -109,7 +118,7 @@ router.delete("/:id", async (req, res) => {
 router.post("/:id/comment", async (req, res) => {
     try {
         let reviewId = req.params.id;
-        var review = await Review.find({ _id: reviewId });
+        var review = await Review.find({_id: reviewId});
         review = review[0];
         if (!review) return res.status(404).send("Object not found");
         //console.log("here", review)
@@ -122,7 +131,7 @@ router.post("/:id/comment", async (req, res) => {
         comments.push(comment);
         console.log("comments are", comments);
         Review.updateOne(
-            { _id: reviewId },
+            {_id: reviewId},
             {
                 $set: {
                     user: review.user,
@@ -136,7 +145,7 @@ router.post("/:id/comment", async (req, res) => {
             }
         )
             .then(async () => {
-                var result = await Review.find({ _id: reviewId });
+                var result = await Review.find({_id: reviewId});
                 res.send(result[0]);
             })
             .catch(err => {
@@ -154,7 +163,7 @@ router.delete("/:reviewId/comment/:commentId", async (req, res) => {
     try {
         let reviewId = req.params.reviewId;
         let userId = req.body.userId;
-        var review = await Review.find({ _id: reviewId });
+        var review = await Review.find({_id: reviewId});
         review = review[0];
         if (!review) return res.status(404).send("Object not found");
         let comments = review.comments;
@@ -167,13 +176,13 @@ router.delete("/:reviewId/comment/:commentId", async (req, res) => {
                 userIdOfCommentToBeDeleted = item.userId;
             }
         });
-        var user = await User.find({ _id: userId });
+        var user = await User.find({_id: userId});
         if (!user) return res.status(404).send("User not found");
         console.log("comment user id is", userIdOfCommentToBeDeleted);
         console.log("user id is", userId);
-        if(userId != userIdOfCommentToBeDeleted && user.userType != "ADMIN") return res.status(404).send("Invalid request");
+        if (userId != userIdOfCommentToBeDeleted && user.userType != "ADMIN") return res.status(404).send("Invalid request");
         Review.updateOne(
-            { _id: reviewId },
+            {_id: reviewId},
             {
                 $set: {
                     user: review.user,
@@ -187,7 +196,7 @@ router.delete("/:reviewId/comment/:commentId", async (req, res) => {
             }
         )
             .then(async () => {
-                var result = await Review.find({ _id: reviewId });
+                var result = await Review.find({_id: reviewId});
                 res.send(result[0]);
             })
             .catch(err => {

@@ -53,7 +53,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
         let id = req.params.id;
-        const restaurant = await Restaurant.find({ _id: id });
+        const restaurant = await Restaurant.find({_id: id});
         res.send(restaurant);
     } catch (err) {
         res.status(400).send(err);
@@ -64,12 +64,12 @@ router.get("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
     try {
         let id = req.params.id;
-        var restaurant = await Restaurant.find({ _id: id });
+        var restaurant = await Restaurant.find({_id: id});
         restaurant = restaurant[0];
         if (!restaurant) return res.status(404).send("Object not found");
 
         Restaurant.updateOne(
-            { _id: id },
+            {_id: id},
             {
                 $set: {
                     name: req.body.name,
@@ -99,7 +99,7 @@ router.put("/:id", async (req, res) => {
             }
         )
             .then(async () => {
-                var result = await Restaurant.find({ _id: id });
+                var result = await Restaurant.find({_id: id});
                 res.send(result[0]);
             })
             .catch(err => {
@@ -114,10 +114,10 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     try {
         let id = req.params.id;
-        var restaurant = await Restaurant.find({ _id: id });
+        var restaurant = await Restaurant.find({_id: id});
         restaurant = restaurant[0];
         if (!restaurant) return res.status(404).send("Object not found");
-        const result = await Restaurant.deleteOne({ _id: restaurant._id });
+        const result = await Restaurant.deleteOne({_id: restaurant._id});
         res.send(result);
     } catch (err) {
         res.status(400).send(err);
@@ -128,10 +128,10 @@ router.delete("/:id", async (req, res) => {
 router.get("/:id/review", async (req, res) => {
     try {
         let id = req.params.id;
-        var restaurant = await Restaurant.find({ _id: id });
+        var restaurant = await Restaurant.find({_id: id});
         restaurant = restaurant[0];
         if (!restaurant) return res.status(404).send("Object not found");
-        const reviews = await Review.find({ restaurant: id })
+        const reviews = await Review.find({restaurant: id})
             .populate("user")
             .populate("restaurant");
         res.send(reviews);
@@ -143,10 +143,10 @@ router.get("/:id/review", async (req, res) => {
 router.get("/:id/event", async (req, res) => {
     try {
         let id = req.params.id;
-        var restaurant = await Restaurant.find({ _id: id });
+        var restaurant = await Restaurant.find({_id: id});
         restaurant = restaurant[0];
         if (!restaurant) return res.status(404).send("Object not found");
-        const events = await Review.find({ restaurant: id }).populate("admin");
+        const events = await Review.find({restaurant: id}).populate("admin");
         res.send(events);
     } catch (err) {
         res.status(400).send(err);
@@ -158,7 +158,7 @@ router.get("/search/:term", async (req, res) => {
     try {
         let term = req.params.term;
         var regex = new RegExp(term, "i");
-        const restaurants = await Restaurant.find({ name: regex }).limit(15);
+        const restaurants = await Restaurant.find({name: regex}).limit(15);
         const returnRestaurants = [];
         const seen = [];
         for (r of restaurants) {
