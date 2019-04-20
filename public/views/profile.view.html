@@ -181,7 +181,7 @@
 <!-- REGISTERED USER is viewing Another REGISTERED USER PROFILE -->
 <section
         class="light-bg booking-details_wrap"
-        ng-if="loggedUser._id != user._id && userType == 'REGISTERED' && loggedUserType == 'REGISTERED'"
+        ng-if="loggedUser._id != user._id && userType == 'REGISTERED' && (loggedUserType == 'REGISTERED' || loggedUser == null)"
 >
     <div class="container">
         <div class="row">
@@ -348,7 +348,7 @@
 <!-- and should user to follow CRITIC -->
 <section
         class="light-bg booking-details_wrap"
-        ng-if="loggedUser._id != user._id && userType == 'CRITIC' && loggedUserType == 'REGISTERED'"
+        ng-if="loggedUser._id != user._id && userType == 'CRITIC' && (loggedUserType == 'REGISTERED' || loggedUser == null)"
 >
     <div class="container">
         <div class="row">
@@ -525,7 +525,7 @@
 <!-- can view owned Restaurant (have fetched in reviews use same method) -->
 <section
         class="light-bg booking-details_wrap"
-        ng-if="loggedUser._id != user._id && userType == 'OWNER' && loggedUserType == 'REGISTERED'"
+        ng-if="loggedUser._id != user._id && userType == 'OWNER' && (loggedUserType == 'REGISTERED' || loggedUser == null)"
 >
     <div class="container">
         <div class="row">
@@ -2849,16 +2849,5 @@
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-
-<!-- Anony user view -->
-<section
-        class="light-bg booking-details_wrap"
-        ng-if="loggedUser == null || loggedUser.userType == 'ADMIN'"
->
-    <div class="container">
-        Login to view profile, If you are admin, visit admin panel to manage users
     </div>
 </section>

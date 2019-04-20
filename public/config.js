@@ -35,6 +35,10 @@
                 templateUrl: "./views/profile.view.html",
                 controller: "UserController"
             })
+            .when("/profile/:userId", {
+                templateUrl: "./views/profile.view.html",
+                controller: "OtherUserController"
+            })
             .when("/restaurant/:restaurantId", {
                 templateUrl: "./views/restaurant.view.html",
                 controller: "RestaurantController"
