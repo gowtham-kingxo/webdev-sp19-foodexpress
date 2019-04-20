@@ -296,7 +296,7 @@
                 let reviewId = review._id;
                 $mdDialog.show({
                     controller: "UpdateReviewController",
-                    templateUrl: "../views/create-review.dialog.view.html",
+                    templateUrl: "../views/create-review.dialog.view.client.html",
                     parent: angular.element(document.body),
                     clickOutsideToClose: false,
                     scope: $scope,
@@ -604,7 +604,7 @@
                     // dialog here
                     $mdDialog.show({
                         controller: "CreateEventController",
-                        templateUrl: "../views/create-event.dialog.view.html",
+                        templateUrl: "../views/create-event.dialog.view.client.html",
                         parent: angular.element(document.body),
                         clickOutsideToClose: false,
                         scope: $scope,
@@ -625,7 +625,7 @@
                 console.log("in update event");
                 $mdDialog.show({
                     controller: "UpdateEventController",
-                    templateUrl: "../views/create-event.dialog.view.html",
+                    templateUrl: "../views/create-event.dialog.view.client.html",
                     parent: angular.element(document.body),
                     clickOutsideToClose: false,
                     scope: $scope,

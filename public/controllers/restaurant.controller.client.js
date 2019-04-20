@@ -150,7 +150,7 @@
                 }
                 $mdDialog.show({
                     controller: "DialogController",
-                    templateUrl: "../views/create-review.dialog.view.html",
+                    templateUrl: "../views/create-review.dialog.view.client.html",
                     parent: angular.element(document.body),
                     clickOutsideToClose: false,
                     scope: $scope,

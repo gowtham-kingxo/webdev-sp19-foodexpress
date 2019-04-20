@@ -47,38 +47,37 @@
     <!-- Adding all Controllers -->
     <script src="./app.js"></script>
     <script src="./config.js"></script>
-    <script src="./controllers/home.controller.js"></script>
-    <script src="./controllers/search.controller.js"></script>
-    <script src="./controllers/login.controller.js"></script>
-    <script src="./controllers/register.controller.js"></script>
-    <script src="./controllers/user.controller.js"></script>
-    <script src="./controllers/restaurant.controller.js"></script>
-    <script src="./controllers/restaurants.controller.js"></script>
-    <script src="./controllers/header.controller.js"></script>
-    <script src="./controllers/create-restaurant.controller.js"></script>
-    <script src="./controllers/update-restaurant.controller.js"></script>
-    <script src="./controllers/update-user.controller.js"></script>
-    <script src="./controllers/favorites.controller.js"></script>
-    <script src="./controllers/create-favorite.controller.js"></script>
-    <script src="./controllers/update-favorite.controller.js"></script>
-    <script src="./controllers/other-user-profile.controller.js"></script>
+    <script src="controllers/home.controller.client.js"></script>
+    <script src="controllers/search.controller.client.js"></script>
+    <script src="controllers/login.controller.client.js"></script>
+    <script src="controllers/register.controller.client.js"></script>
+    <script src="controllers/user.controller.client.js"></script>
+    <script src="controllers/restaurant.controller.client.js"></script>
+    <script src="controllers/restaurants.controller.client.js"></script>
+    <script src="controllers/header.controller.client.js"></script>
+    <script src="controllers/create-restaurant.controller.client.js"></script>
+    <script src="controllers/update-restaurant.controller.client.js"></script>
+    <script src="controllers/update-user.controller.client.js"></script>
+    <script src="controllers/favorites.controller.client.js"></script>
+    <script src="controllers/create-favorite.controller.client.js"></script>
+    <script src="controllers/update-favorite.controller.client.js"></script>
+    <script src="controllers/other-user-profile.controller.client.js"></script>
 
     <!-- Add services-->
-    <script src="./services/search.service.js"></script>
-    <script src="./services/restaurant.service.js"></script>
-    <script src="./services/review.service.js"></script>
-    <script src="./services/login.service.js"></script>
-    <script src="./services/flash.service.js"></script>
-    <script src="./services/user.service.js"></script>
-    <script src="./services/event.service.js"></script>
-    <script src='./services/source.js'></script>
+    <script src="services/search.service.client.js"></script>
+    <script src="services/restaurant.service.client.js"></script>
+    <script src="services/review.service.client.js"></script>
+    <script src="services/login.service.client.js"></script>
+    <script src="services/flash.service.client.js"></script>
+    <script src="services/user.service.client.js"></script>
+    <script src="services/event.service.client.js"></script>
 </head>
 
 <body ng-app="FoodExpress">
 <flash-message></flash-message>
 <!--============================= HEADER =============================-->
 <div ng-controller="HeaderController">
-    <div ng-include="'./views/header.view.html'"></div>
+    <div ng-include="'./views/header.view.client.html'"></div>
 </div>
 
 <div ng-view></div>

@@ -4,11 +4,11 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-const user = require('./routes/profile');
-const restaurant = require('./routes/restaurant');
-const featured = require('./routes/featured');
-const event = require('./routes/event');
-const review = require('./routes/review');
+const user = require('./routes/profile.route.server');
+const restaurant = require('./routes/restaurant.route.server');
+const featured = require('./routes/featured.route.server');
+const event = require('./routes/event.route.server');
+const review = require('./routes/review.route.server');
 const app = express();
 
 const port = process.env.PORT || 5000;
