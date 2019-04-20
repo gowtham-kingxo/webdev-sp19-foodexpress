@@ -1,7 +1,7 @@
-(function () {
+(function() {
     angular
         .module("FoodExpress")
-        .controller("UserController", function (
+        .controller("UserController", function(
             $rootScope,
             $scope,
             $http,
@@ -15,6 +15,9 @@
             $mdDialog,
             EventService
         ) {
+
+            console.log("in user controller");
+
             $scope.getLoggedInUser = getLoggedInUser();
             //$scope.getProfileUser = getProfileUser();
             $scope.reviewsLoading = true;
@@ -63,8 +66,13 @@
 
             function getProfileUser() {
                 let id = $routeParams.userId;
-                UserService.getUser(id)
-                    .then(function (response) {
+                let id2 = $scope.loggedUser._id
+
+
+                console.log(" id from params: "+ id +" id from scope: "+id2)
+
+                UserService.getUser(id2)
+                    .then(function(response) {
                         $scope.user = response.data.user;
                         $scope.userType = $scope.user.userType;
                         console.log("response is", response.data);
@@ -81,7 +89,7 @@
                         getOwnerRestaurant();
                         getEventsForUser();
                     })
-                    .catch(function (err) {
+                    .catch(function(err) {
                         console.log(err);
                     });
             }
@@ -90,11 +98,11 @@
                 if ($scope.userType == "REGISTERED" || $scope.userType == "CRITIC") {
                     let id = $scope.user._id;
                     UserService.getReviews(id).then(
-                        function (response) {
+                        function(response) {
                             $scope.reviews = response.data;
                             $scope.reviewsLoading = false;
                         },
-                        function (err) {
+                        function(err) {
                             console.log("error in fetching reviews", err);
                         }
                     );
@@ -109,26 +117,25 @@
                 ) {
                     let id = $scope.user._id;
                     UserService.getFollows(id).then(
-                        function (response) {
+                        function(response) {
                             populatedUsers = [];
                             $q.all(extractUsers(response.data, populatedUsers)).then(
-                                function (response) {
+                                function(response) {
                                     $scope.follows = angular.copy(populatedUsers);
                                     console.log("follows are", $scope.follows);
                                     $scope.followsLoading = false;
                                 },
-                                function (err) {
+                                function(err) {
                                     console.log(err);
                                 }
                             );
                         },
-                        function (err) {
+                        function(err) {
                             console.log("error in fetching folllows", err);
                         }
                     );
                 }
             }
-
             function extractUsers(usersArray, populatedUsers) {
                 console.log("users array is", usersArray);
                 // populatedUsers = []
@@ -136,10 +143,10 @@
                 for (user of usersArray) {
                     let promise = UserService.getUser(user);
                     promise.then(
-                        function (response) {
+                        function(response) {
                             populatedUsers.push(response.data);
                         },
-                        function (err) {
+                        function(err) {
                             console.log(err);
                         }
                     );
@@ -147,25 +154,24 @@
                 }
                 return promises;
             }
-
             function getUserFollowedBy() {
                 if ($scope.userType == "REGISTERED" || $scope.userType == "CRITIC") {
                     let id = $scope.user._id;
                     UserService.getFollowedBy(id).then(
-                        function (response) {
+                        function(response) {
                             // $scope.followedBy = response.data;
                             populatedUsers1 = [];
                             $q.all(extractUsers(response.data, populatedUsers1)).then(
-                                function (response) {
+                                function(response) {
                                     $scope.followedBy = angular.copy(populatedUsers1);
                                     $scope.followedByLoading = false;
                                 },
-                                function (err) {
+                                function(err) {
                                     console.log(err);
                                 }
                             );
                         },
-                        function (err) {
+                        function(err) {
                             console.log("error in fetching followedBy", err);
                         }
                     );
@@ -176,20 +182,20 @@
                 if ($scope.userType == "OWNER" || $scope.userType == "CRITIC") {
                     let id = $scope.user._id;
                     UserService.getEndorses(id).then(
-                        function (response) {
+                        function(response) {
                             // $scope.endorses = response.data;
                             endorsesUsers = [];
                             $q.all(extractUsers(response.data, endorsesUsers)).then(
-                                function (response) {
+                                function(response) {
                                     $scope.endorses = angular.copy(endorsesUsers);
                                     $scope.endorsesLoading = false;
                                 },
-                                function (err) {
+                                function(err) {
                                     console.log(err);
                                 }
                             );
                         },
-                        function (err) {
+                        function(err) {
                             console.log("error in fetching endorses", err);
                         }
                     );
@@ -200,20 +206,20 @@
                 if ($scope.userType == "OWNER") {
                     let id = $scope.user._id;
                     UserService.getEndorsedBy(id).then(
-                        function (response) {
+                        function(response) {
                             // $scope.endorsedBy = response.data;
                             endorsedByUsers = [];
                             $q.all(extractUsers(response.data, endorsedByUsers)).then(
-                                function (response) {
+                                function(response) {
                                     $scope.endorsedBy = angular.copy(endorsedByUsers);
                                     $scope.endorsedByLoading = false;
                                 },
-                                function (err) {
+                                function(err) {
                                     console.log(err);
                                 }
                             );
                         },
-                        function (err) {
+                        function(err) {
                             console.log("error in fetching endorsedBy", err);
                         }
                     );
@@ -222,14 +228,14 @@
 
             $scope.viewProfile = function viewProfile(user) {
                 let id = user._id;
-                $location.url("/user/" + id);
+                $location.url("/profile/" + id);
             };
 
             $scope.unfollowUser = function unfollowUser(user, follow = null) {
                 let userId1 = $scope.loggedUser._id;
                 let userId2 = user._id;
                 UserService.deleteFollow(userId1, userId2).then(
-                    function (response) {
+                    function(response) {
                         if (follow != null) {
                             let index = $scope.follows.indexOf(follow);
                             if (index > -1) {
@@ -255,12 +261,11 @@
                             $scope.followedBy.splice(index3, 1);
                         }
                     },
-                    function (err) {
+                    function(err) {
                         console.log("error unfollowing", err);
                     }
                 );
             };
-
             function getIndexOfLoggedUserInArray(userToFind, userArray) {
                 let returnIndex = null;
                 userArray.forEach((element, index) => {
@@ -273,16 +278,15 @@
                 });
                 return returnIndex;
             }
-
             $scope.deleteReview = function deleteReview(review) {
                 // body
                 let reviewId = review._id;
                 ReviewService.removeReview(reviewId).then(
-                    function (response) {
+                    function(response) {
                         let index = $scope.reviews.indexOf(review);
                         $scope.reviews.splice(index, 1);
                     },
-                    function (err) {
+                    function(err) {
                         console.log("error in removing review", err);
                     }
                 );
@@ -309,7 +313,7 @@
                 let userId1 = $scope.loggedUser._id;
                 let userId2 = user._id;
                 UserService.createFollow(userId1, userId2).then(
-                    function (response) {
+                    function(response) {
                         //    $scope.follows
                         $scope.loggedFollows.push(userId2);
                         console.log("current followed by is", $scope.followedBy);
@@ -319,7 +323,7 @@
                         });
                         checkUserInFollowsOfLoggedInUser();
                     },
-                    function (err) {
+                    function(err) {
                         console.log("error following", err);
                     }
                 );
@@ -333,20 +337,19 @@
                 ) {
                     let id = $scope.loggedUser._id;
                     UserService.getFollows(id).then(
-                        function (response) {
+                        function(response) {
                             $scope.loggedFollows = response.data;
                             checkUserInFollowsOfLoggedInUser();
                             //checkUserInFollowsOfLoggedInUser();
                         },
-                        function (err) {
+                        function(err) {
                             console.log("error in fetching folllows of logged In users", err);
                         }
                     );
                 }
             }
 
-            function getLoggedInUserFollowedBy() {
-            }
+            function getLoggedInUserFollowedBy() {}
 
             function checkUserInFollowsOfLoggedInUser() {
                 // body
@@ -361,22 +364,22 @@
             function getUserFavourites() {
                 if ($scope.userType == "REGISTERED") {
                     UserService.getFavorites($scope.user._id).then(
-                        function (response) {
+                        function(response) {
                             populateRestaurants = [];
                             $q.all(
                                 extractRestaurants(response.data, populateRestaurants)
                             ).then(
-                                function (response) {
+                                function(response) {
                                     $scope.favourites = angular.copy(populateRestaurants);
                                     console.log("favourites are ", $scope.favourites);
                                     $scope.favouritesLoading = false;
                                 },
-                                function (err) {
+                                function(err) {
                                     console.log(err);
                                 }
                             );
                         },
-                        function (err) {
+                        function(err) {
                             console.log(err);
                         }
                     );
@@ -386,22 +389,22 @@
             function getLoggedInUserFavourites() {
                 if ($scope.loggedUserType == "REGISTERED") {
                     UserService.getFavorites($scope.loggedUser._id).then(
-                        function (response) {
+                        function(response) {
                             populateRestaurants1 = [];
                             $q.all(
                                 extractRestaurants(response.data, populateRestaurants1)
                             ).then(
-                                function (response) {
+                                function(response) {
                                     $scope.loggedFavourites = angular.copy(populateRestaurants1);
                                     $scope.logggedFavouritesLoading = false;
                                     getUserFavourites();
                                 },
-                                function (err) {
+                                function(err) {
                                     console.log(err);
                                 }
                             );
                         },
-                        function (err) {
+                        function(err) {
                             console.log(err);
                         }
                     );
@@ -415,10 +418,10 @@
                 for (restaurant of restaurantsArray) {
                     let promise = RestaurantService.getRestaurant(restaurant);
                     promise.then(
-                        function (response) {
+                        function(response) {
                             populatedRestaurants.push(response.data);
                         },
-                        function (err) {
+                        function(err) {
                             console.log(err);
                         }
                     );
@@ -432,11 +435,11 @@
                 index
             ) {
                 UserService.deleteFavorite($scope.loggedUser._id, restaurant._id).then(
-                    function (response) {
+                    function(response) {
                         $scope.loggedFavourites.splice(index, 1);
                         // Additional things after unfollowing
                     },
-                    function (err) {
+                    function(err) {
                         console.log(err);
                     }
                 );
@@ -450,7 +453,7 @@
                 // body
 
                 UserService.deleteEndorse($scope.loggedUser._id, owner._id).then(
-                    function (response) {
+                    function(response) {
                         if (index != null) {
                             $scope.endorses.splice(index, 1);
                         }
@@ -469,7 +472,7 @@
                             $scope.endorsedBy.splice(index3, 1);
                         }
                     },
-                    function (err) {
+                    function(err) {
                         console.log("error in unendorsing owner", err);
                     }
                 );
@@ -482,12 +485,12 @@
                     $scope.loggedUserType == "CRITIC"
                 ) {
                     UserService.getEndorses(id).then(
-                        function (response) {
+                        function(response) {
                             $scope.loggedEndorses = response.data;
                             $scope.loggedEndorsesLoading = false;
                             checkUserInEndorseOfLoggedInUser();
                         },
-                        function (err) {
+                        function(err) {
                             console.log("error in fetching logged endorses", err);
                         }
                     );
@@ -499,7 +502,7 @@
                 let userId2 = owner._id;
 
                 UserService.createEndorse(userId1, userId2).then(
-                    function (response) {
+                    function(response) {
                         console.log("response after endorsing", response.data);
                         $scope.loggedEndorses.push(response.data.user2._id);
                         $scope.endorsedBy.push({
@@ -507,7 +510,7 @@
                         });
                         checkUserInEndorseOfLoggedInUser();
                     },
-                    function (err) {
+                    function(err) {
                         console.log("Error in endorsing user", err);
                     }
                 );
@@ -522,7 +525,6 @@
                 // let id = user._id;
                 // return $scope.loggedFollows.
             }
-
             function getLoggedInUserEndorsedBy() {
                 // pass
             }
@@ -531,12 +533,12 @@
                 if ($scope.userType == "OWNER") {
                     let ownerId = $scope.user._id;
                     UserService.getOwnerRestaurant(ownerId).then(
-                        function (response) {
+                        function(response) {
                             console.log("owner restaurant is", response.data);
                             $scope.ownerRestaurant = response.data;
                             console.log("owner", $scope.ownerRestaurant);
                         },
-                        function (err) {
+                        function(err) {
                             console.log(err);
                         }
                     );
@@ -552,10 +554,10 @@
                 let ownerId = $scope.loggedUser._id;
 
                 UserService.deleteOwnerRestaurant(ownerId, restaurantId).then(
-                    function (response) {
+                    function(response) {
                         $scope.ownerRestaurant = null;
                     },
-                    function (err) {
+                    function(err) {
                         console.log("err");
                     }
                 );
@@ -564,21 +566,20 @@
             $scope.updateUser = function updateUser() {
                 $location.url('update-user' + "/" + $scope.loggedUser._id);
             }
-
             function getEventsForUser() {
                 if ($scope.userType == "OWNER") {
                     let userId = $scope.user._id;
                     UserService.getEventsForUser(userId).then(
-                        function (response) {
+                        function(response) {
                             $scope.events = response.data;
                             $scope.eventsLoading = false;
                         },
-                        function (err) {
+                        function(err) {
                             console.log(err);
                         }
                     );
                 }
-                else {
+                else{
                     $scope.eventsLoading = true;
                 }
             }
@@ -586,20 +587,20 @@
             $scope.deleteEvent = function deleteEvent(event, index) {
                 let eventId = event._id;
                 EventService.deleteEvent(eventId).then(
-                    function (response) {
+                    function(response) {
                         $scope.events.splice(index, 1);
                     },
-                    function (err) {
+                    function(err) {
                         console.log("unable to delete event", err);
                     }
                 );
             };
 
             // create and update event in model
-            $scope.createEvent = function createEvent() {
+            $scope.createEvent = function createEvent(){
                 console.log("in create event");
-                console.log("logged user is", $scope.loggedUser);
-                if ($scope.loggedUser.owner.hasOwnProperty('restaurant') || $scope.ownerRestaurant != null) {
+                console.log("logged user is" ,$scope.loggedUser);
+                if($scope.loggedUser.owner.hasOwnProperty('restaurant') || $scope.ownerRestaurant != null){
                     // dialog here
                     $mdDialog.show({
                         controller: "CreateEventController",
@@ -614,7 +615,7 @@
                         // }
                     });
                 }
-                else {
+                else{
                     alert("You don't own a restaurant, claim a restaurant first for creating events");
                 }
             }
@@ -638,7 +639,7 @@
 
 
         })
-        .controller("UpdateReviewController", function (
+        .controller("UpdateReviewController", function(
             $scope,
             $mdDialog,
             review,
@@ -663,12 +664,12 @@
                 $scope.dataLoading = true;
                 console.log("review being posted is", $scope.newReview);
                 ReviewService.updateReview(review._id, $scope.newReview).then(
-                    function (response) {
+                    function(response) {
                         $scope.reviews.splice(index, 1);
                         $scope.reviews.push(response.data);
                         $mdDialog.cancel();
                     },
-                    function (err) {
+                    function(err) {
                         console.log(err);
                     }
                 );
@@ -681,6 +682,7 @@
         })
 
         .controller("UpdateEventController", function (
+
             $scope,
             $mdDialog,
             EventService,
@@ -715,14 +717,14 @@
                 $scope.dataLoading = true;
                 console.log("event being posted is", $scope.newEvent);
                 EventService.updateEvent(event._id, $scope.newEvent).then(
-                    function (response) {
+                    function(response) {
                         console.log("response is", response);
-                        $scope.events.splice(index, 1);
+                        $scope.events.splice(index,1);
                         $scope.events.push(response.data);
                         //$scope.eventsLoading = false;
                         $mdDialog.cancel();
                     },
-                    function (err) {
+                    function(err) {
                         console.log(err);
                         $mdDialog.cancel();
                     }
@@ -735,7 +737,7 @@
             };
         })
 
-        .controller("CreateEventController", function (
+        .controller("CreateEventController", function(
             $scope,
             $mdDialog,
             EventService
@@ -744,17 +746,17 @@
             date = date.toString();
             $scope.type = "Create";
             $scope.dataLoading = false;
-            let restaurantId = null;
-            if ($scope.ownerRestaurant != null) {
+            let restaurantId =null;
+            if($scope.ownerRestaurant != null){
                 restaurantId = $scope.ownerRestaurant._id;
             }
-            else {
+            else{
                 restaurantId = $scope.loggedUser.owner.restaurant;
             }
             $scope.newEvent = {
                 name: $scope.name,
                 owner: $scope.loggedUser._id,
-                restaurant: restaurantId,
+                restaurant:restaurantId,
                 start_time: $scope.start_time,
                 end_time: $scope.end_time,
                 description: $scope.description,
@@ -768,13 +770,13 @@
                 $scope.dataLoading = true;
                 console.log("event being posted is", $scope.newEvent);
                 EventService.createEvent($scope.newEvent).then(
-                    function (response) {
+                    function(response) {
                         console.log("response is", response);
                         $scope.events.push(response.data[0]);
                         $scope.eventsLoading = false;
                         $mdDialog.cancel();
                     },
-                    function (err) {
+                    function(err) {
                         console.log(err);
                         $mdDialog.cancel();
                     }
