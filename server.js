@@ -32,7 +32,7 @@ app.use(function(req, res, next) {
         next();
 });
 
-app.get('/*', function(req, res) {
+app.get('/[^a][^p][^i]*', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/index.html'));
 });
 
