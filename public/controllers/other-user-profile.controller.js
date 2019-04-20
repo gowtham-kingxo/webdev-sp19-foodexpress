@@ -78,8 +78,13 @@
                 // let id = $routeParams.userId;
                 let id2;
 
-                if ($scope.loggedUser != null && $scope.loggedUser) {
+                console.log($rootScope.searchType + "search type");
+
+                if ($scope.loggedUser != null
+                    && $scope.loggedUser
+                    && ($scope.loggedUser._id == $routeParams.userId)) {
                     id2 = $scope.loggedUser._id;
+
                 } else {
                     id2 = $routeParams.userId;
 
@@ -496,11 +501,11 @@
             };
 
             function getLoggedInUserEndorses() {
-                let id = $scope.loggedUser._id;
                 if (
                     $scope.loggedUserType == "OWNER" ||
                     $scope.loggedUserType == "CRITIC"
                 ) {
+                    let id = $scope.loggedUser._id;
                     UserService.getEndorses(id).then(
                         function(response) {
                             $scope.loggedEndorses = response.data;

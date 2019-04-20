@@ -21,6 +21,9 @@
                 //remove
 
                 var searchTerm = $routeParams.searchTerm;
+
+                console.log('searchTerm +' + searchTerm);
+
                 var flag = 0;
                 console.log("hello.. 1 = "+searchTerm);
                 if (($rootScope.searchType == "restaurant")) {
@@ -51,6 +54,11 @@
                             console.log(err);
                         }
                     );
+                } else if(($rootScope.searchType == "user") ) {
+
+                    console.log("in user else if");
+                    getUsers();
+
                 } else if(searchTerm !== undefined) {
                     $rootScope.searchType = "restaurant";
                     $rootScope.search = searchTerm;
@@ -74,6 +82,9 @@
 
 
             function getUsers() {
+
+                console.log("in get users");
+
                 if ($rootScope.searchType == "user") {
                     console.log("search term is", $rootScope.userSearch);
                     SearchService.getSearchUsers($rootScope.userSearch).then(

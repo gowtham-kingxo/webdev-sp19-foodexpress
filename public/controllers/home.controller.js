@@ -34,7 +34,7 @@
                 $rootScope.searchType = "user";
                 console.log("search term is", $scope.userSearch);
                 $rootScope.userSearch = $scope.userSearch;
-                $location.url("/search");
+                $location.url("/search/"+$scope.userSearch);
             };
 
             function getLastReview() {
