@@ -32,16 +32,17 @@ app.use(function(req, res, next) {
         next();
 });
 
-app.get('/[^a][^p][^i]*', function(req, res) {
-    res.sendFile(path.join(__dirname + '/public/index.html'));
-});
-
 app.use('/api/user', user);
 app.use('/api/restaurant', restaurant);
 app.use('/api/event', event);
 app.use('/api/review',review);
 app.use('/api/advertisement', advertisement);
 app.use('/api/featured', featured);
+
+app.get('/*', function(req, res) {
+    res.sendFile('public/index.html' , { root : __dirname});
+});
+
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`Server running on ${port}`));
