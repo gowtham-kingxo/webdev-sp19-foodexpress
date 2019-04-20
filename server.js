@@ -41,28 +41,6 @@ app.use('/api/review', review);
 app.use('/api/advertisement', advertisement);
 app.use('/api/featured', featured);
 
-app.use('*controllers*', function (req, res, next) {
-
-})
-app.use('*css*', function (req, res, next) {
-    next();
-})
-app.use('*fonts*', function (req, res, next) {
-    next();
-})
-app.use('*images*', function (req, res, next) {
-    next();
-})
-app.use('*scss*', function (req, res, next) {
-    next();
-})
-app.use('*services*', function (req, res, next) {
-    next();
-})
-app.use('*views*', function (req, res, next) {
-    next();
-})
-
 app.use('/*', function (req, res) {
     console.log("entered")
     res.sendFile('public/index.html', {root: __dirname});
