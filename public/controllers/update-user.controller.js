@@ -3,7 +3,7 @@
         .module("FoodExpress")
         .controller("UpdateUserController", function ($rootScope, $scope, $window, $routeParams, UserService) {
             $scope.types = [
-                "REGISTERED", "CRITIC", "OWNER", "ADVERTISER", "ADMIN"
+                "REGISTERED", "CRITIC", "OWNER"
             ];
 
             let id = $routeParams.userId;

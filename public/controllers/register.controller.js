@@ -3,7 +3,7 @@
         .module("FoodExpress")
         .controller("RegisterController", function ($rootScope, $scope, $window, UserService) {
             $scope.types = [
-                "REGISTERED", "CRITIC", "OWNER", "ADVERTISER", "ADMIN"
+                "REGISTERED", "CRITIC", "OWNER"
             ];
 
             $scope.register = function () {

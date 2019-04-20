@@ -67,7 +67,7 @@
             </select>
             <br/><br/>
 
-            <div class="form-group" ng-show="type == 'CRITIC' || type == 'ADVERTISER'">
+            <div class="form-group" ng-show="type == 'CRITIC'">
                 <label for="company">Company</label>
                 <input type="text" class="form-control" id="company" placeholder="Enter company name"
                        ng-model="company">
@@ -79,24 +79,8 @@
             </div>
 
             <div class="form-group" ng-show="type == 'OWNER'">
-                <p>In order to claim a restaurant as yours, visit your profile page after registration.</p>
+                <p>In order to claim a restaurant as yours, visit a restaurant page after registration.</p>
             </div>
-
-            <div class="form-group" ng-show="type == 'ADVERTISER'">
-                <label for="cc">Credit card number</label>
-                <input type="text" class="form-control" id="cc" placeholder="1234567890123456"
-                       ng-model="creditCardNumber">
-            </div>
-            <div class="form-group" ng-show="type == 'ADVERTISER'">
-                <label for="card-type">Card type</label>
-                <input type="text" class="form-control" id="card-type" placeholder="Visa/Mastercard"
-                       ng-model="cardType">
-            </div>
-            <div class="form-group" ng-show="type == 'ADVERTISER'">
-                <label for="cvv">CVV</label>
-                <input type="text" class="form-control" id="cvv" placeholder="123" ng-model="cvv">
-            </div>
-
             <br/><br/>
             <button type="submit" class="btn btn-primary" ng-click="register()">Submit</button>
         </form>
