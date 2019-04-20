@@ -34,52 +34,16 @@
                 };
                 console.log("user getting post is", user);
 
-                if(user.username.length === 0 ){
-                    alert("All fields are required");
-                    return;
-                }
-
-                if(!user.email){
-                    alert("All fields are required");
-                    return;
-                }
-
-                if(!user.streetaddress){
-                    alert("All fields are required");
-                    return;
-                }
-
-                if(!user.streetaddress2){
-                    alert("All fields are required");
-                    return;
-                }
-
-                if(!user.city){
-                    alert("All fields are required");
-                    return;
-                }
-
-                if(!user.state){
-                    alert("All fields are required");
-                    return;
-                }
-
-                if(!user.country){
-                    alert("All fields are required");
-                    return;
-                }
-
-                if(!user.zipcode){
-                    alert("All fields are required");
-                    return;
-                }
-
-                if(!user.phone){
-                    alert("All fields are required");
-                    return;
-                }
-
-                if(!user.userType){
+                if(user.username.length === 0 ||
+                    !user.email ||
+                    !user.streetaddress ||
+                    !user.streetaddress2 ||
+                    !user.city ||
+                    !user.state ||
+                    !user.country ||
+                    !user.zipcode ||
+                    !user.phone ||
+                    !user.userType){
                     alert("All fields are required");
                     return;
                 }
