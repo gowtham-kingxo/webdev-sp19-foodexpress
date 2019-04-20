@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
-const user = require('./routes/user');
+const user = require('./routes/profile');
 const restaurant = require('./routes/restaurant');
 const featured = require('./routes/featured');
 const event = require('./routes/event');
@@ -15,6 +15,8 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
+
+
 
 const db = require('./data/db').mongoURI;
 
@@ -31,7 +33,7 @@ app.use(function(req, res, next) {
         next();
 });
 // app.get('/', (req, res) => res.send('Hello world whatsup'));
-app.use('/api/user', user);
+app.use('/api/profile', user);
 app.use('/api/restaurant', restaurant);
 app.use('/api/event', event);
 app.use('/api/review',review);

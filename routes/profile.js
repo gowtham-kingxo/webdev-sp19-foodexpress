@@ -754,7 +754,7 @@ router.post('/:id1/unfollow/:id2', async (req, res) => {
 });
 
 
-// /api/user/userId/follow
+// /api/profile/profileId/follow
 // GET REQUEST
 // get follows list for the user
 
@@ -834,7 +834,7 @@ router.get('/:id/follows', async (req, res) => {
     }
 });
 
-// /api/user/userId/followedBy
+// /api/profile/profileId/followedBy
 // GET REQUEST
 // get followedBy list for the user
 router.get('/:id/followedby', async (req, res) => {
@@ -887,7 +887,7 @@ router.get('/:id/followedby', async (req, res) => {
 });
 
 
-// /api/user/userId/endorses
+// /api/profile/profileId/endorses
 // GET REQUEST
 // get endorses list for the user
 // returns an array
@@ -919,7 +919,7 @@ router.get('/:id/endorses', async (req, res) => {
     }
 });
 
-// /api/user/userId/endorsedBy
+// /api/profile/profileId/endorsedBy
 // GET request
 // get endorsedBy list for the user
 // returns an array
@@ -947,7 +947,7 @@ router.get('/:id/endorsedBy', async (req, res) => {
 
 
 
-// /userId/favorites/restaurantId
+// /profileId/favorites/restaurantId
 // add to favorites list of User
 // POST Request
 // add a restaurant to the favorites list.
@@ -991,7 +991,7 @@ router.post('/:id1/favorites/:id2', async (req, res) => {
 
 
 
-// /userId/favorites/restaurantId
+// /profileId/favorites/restaurantId
 // delete a restaurant from favorites list of user
 // POST request
 router.post('/:id1/unfavorites/:id2', async(req, res) => {
@@ -1037,7 +1037,7 @@ router.post('/:id1/unfavorites/:id2', async(req, res) => {
 });
 
 
-// /userId/favorite
+// /profileId/favorite
 // get favorites list for a user
 // GET REQUEST
 router.get('/:id/favorites', async(req, res) => {
@@ -1065,7 +1065,7 @@ router.get('/:id/favorites', async(req, res) => {
 // add restaurant to userType = OWNER
 // get the user back with restaurant added
 // change the is_claimed field for the restaurant
-// /userId/owns/restId
+// /profileId/owns/restId
 // POST REQUEST
 
 router.post('/:userid/owns/:restid', async (req, res) => {
@@ -1108,7 +1108,7 @@ router.post('/:userid/owns/:restid', async (req, res) => {
 
 // remove the restaurant key from owner object
 // change the is_claimed field to false
-// /userId/disowns/restId
+// /profileId/disowns/restId
 // POST REQUEST
 
 router.post('/:userid/disown/:restid', async (req, res) => {

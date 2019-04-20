@@ -227,7 +227,7 @@
 
       $scope.viewProfile = function viewProfile(user) {
         let id = user._id;
-        $location.url("/user/" + id);
+        $location.url("/profile/" + id);
       };
 
       $scope.unfollowUser = function unfollowUser(user, follow = null) {

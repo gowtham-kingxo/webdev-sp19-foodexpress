@@ -22,7 +22,7 @@
                 // body
                 console.log("in header go to profile")
                 let user = JSON.parse(LoginService.getCookieData())
-                $location.url("/user/" + user._id);
+                $location.url("/profile/" + user._id);
             }
             
         });

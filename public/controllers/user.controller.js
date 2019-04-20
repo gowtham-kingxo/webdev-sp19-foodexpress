@@ -55,6 +55,9 @@
       // create Advertisements
       // view Advertisements
       // delete Advertisements
+
+        console.log("in user controller");
+
       function getLoggedInUser() {
         // body
         $scope.loggedUser = JSON.parse(LoginService.getCookieData());
@@ -227,7 +230,7 @@
 
       $scope.viewProfile = function viewProfile(user) {
         let id = user._id;
-        $location.url("/user/" + id);
+        $location.url("/profile/" + id);
       };
 
       $scope.unfollowUser = function unfollowUser(user, follow = null) {

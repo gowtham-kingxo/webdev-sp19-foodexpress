@@ -95,7 +95,7 @@
       }
 
       function viewUser(user){
-          $location.url("/user/" + user._id);
+          $location.url("/profile/" + user._id);
       }
     });
 })();

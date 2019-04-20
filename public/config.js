@@ -10,9 +10,9 @@
         $httpProvider.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
         $httpProvider.defaults.headers.post['Access-Control-Allow-Credentials'] = 'true';
 
+
         $locationProvider.html5Mode(true);
         $locationProvider.hashPrefix('');
-
 
         $routeProvider
             .when("/", {
@@ -31,8 +31,8 @@
                 templateUrl: "./views/register.view.html",
                 controller: "RegisterController"
             })
-            .when("/user/:userId", {
-                templateUrl: "./views/user.view.html",
+            .when("/profile/:userId", {
+                templateUrl: "./views/profile.view.html",
                 controller: "UserController"
             })
             .when("/restaurant/:restaurantId", {

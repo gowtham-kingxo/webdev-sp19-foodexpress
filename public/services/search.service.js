@@ -17,7 +17,8 @@
         }
 
         function getSearchUsers(term){
-            url = "http://localhost:5000/api/user/search/" + term;
+            //gow-changed user to profile
+            url = "http://localhost:5000/api/profile/search/" + term;
             return $http.get(url);
         }
         
