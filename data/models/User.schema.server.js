@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const OwnerSchema = require("./Owner.schema.server");
 const CriticSchema = require("./Critic.schema.server");
 const RegisteredUserScehma = require("./RegisteredUser.schema.server");
-const AdvertiserSchema = require("./Advertiser.schema.server");
 const UserSchema = new Schema(
   {
     username: {
@@ -61,12 +60,11 @@ const UserSchema = new Schema(
     userType: {
       type: String,
       required: true,
-      enum: ["REGISTERED", "CRITIC", "OWNER", "ADVERTISER", "ADMIN"]
+      enum: ["REGISTERED", "CRITIC", "OWNER"]
     },
     owner: OwnerSchema,
     critic: CriticSchema,
     registeredUser: RegisteredUserScehma,
-    advertiser: AdvertiserSchema,
     date: {
       type: Date,
       default: Date.now

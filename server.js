@@ -8,7 +8,6 @@ const user = require('./routes/user');
 const restaurant = require('./routes/restaurant');
 const featured = require('./routes/featured');
 const event = require('./routes/event');
-const advertisement = require('./routes/advertisement');
 const review = require('./routes/review');
 const app = express();
 
@@ -38,7 +37,6 @@ app.use('/api/user', user);
 app.use('/api/restaurant', restaurant);
 app.use('/api/event', event);
 app.use('/api/review', review);
-app.use('/api/advertisement', advertisement);
 app.use('/api/featured', featured);
 
 app.use(function(req, res) {

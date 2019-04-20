@@ -9,17 +9,14 @@
             RestaurantService,
             LoginService,
             ReviewService,
-            AdvertisementService,
             EventService
         ) {
             $scope.search = "";
             $scope.userSearch = "";
             $scope.getFeaturedRestaurants = getFeaturedResults();
             $scope.getCurrentLoggedInUser = getCurrentLoggedInUser();
-            $scope.getAdvertisements = getAdvertisements();
             $scope.getEvents = getEvents();
             $scope.featuredLoading = true;
-            $scope.advertisementsLoading = true;
             $scope.eventsLoading = true;
             $scope.getLastReview = getLastReview();
 
@@ -67,19 +64,6 @@
                 console.log("restaurant passed is", restaurant);
                 let id = restaurant._id;
                 $location.url("/restaurant/" + id);
-            }
-
-            function getAdvertisements() {
-                AdvertisementService.getAdvertisements()
-                    .then(
-                        function (response) {
-                            $scope.advertisements = response.data;
-                            $scope.advertisementsLoading = false;
-                        },
-                        function (err) {
-                            console.log(err);
-                        }
-                    )
             }
 
             function getEvents() {

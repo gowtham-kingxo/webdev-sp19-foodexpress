@@ -6,7 +6,7 @@
                     <form name="form" ng-submit="postReview()" role="form">
                         <div class="form-group"
                              ng-class="{ 'has-error': form.review-text.$error.required }">
-                            <label for="text">Text</label>
+                            <label for="review-text">Text</label>
                             <textarea name="review-text" id="review-text" class="form-control" ng-model="newReview.text"
                                    required></textarea>
                             <span ng-show="form.review-text.$error.required" class="help-block">text is required</span>

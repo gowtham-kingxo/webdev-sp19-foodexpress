@@ -4,7 +4,6 @@ const router = express.Router();
 const User = require('../data/models/User.schema.server');
 const Review = require('../data/models/Review.schema.server');
 const Restaurant = require('../data/models/Restaurant.schema.server');
-const Advertisement = require('../data/models/Advertisement.schema.server');
 const EventModel = require("../data/models/Event.schema.server");
 const bcrypt = require('bcryptjs');
 let _ = require('underscore');
@@ -87,26 +86,6 @@ router.post('/register', (req, res) => {
                         critic.endorses = [];
                         user.critic = critic;
 
-                    } else if (req.body.userType == "ADVERTISER") {
-                        let advertiser = {};
-                        let company = {};
-                        let payment = {};
-                        let name = req.body.name;
-                        let position = req.body.position;
-                        let credit_card_number = req.body.credit_card_number;
-                        let cardType = req.body.cardType;
-                        let cvv = req.body.cvv;
-
-                        company.name = name;
-                        company.position = position;
-
-                        payment.credit_card_number = credit_card_number;
-                        payment.cardType = cardType;
-                        payment.cvv = cvv;
-
-                        advertiser.company = company;
-                        advertiser.payment = payment;
-                        user.advertiser = advertiser;
                     }
 
                     const newUser = new User(user);
@@ -302,7 +281,7 @@ router.get('/:id/reviews', async (req, res) => {
 
         if (!user) return res.status(404).send("User not found");
 
-        if (user.userType == 'OWNER' || user.userType == 'ADVERTISER')
+        if (user.userType == 'OWNER')
             return res.send("No Reviews found");
         else {
             const reviews = await Review.find({
@@ -358,7 +337,7 @@ router.post('/:id1/endorse/:id2', async (req, res) => {
 
         if (!user1 || !user2) return res.status(404).send('user not found');
 
-        if(user1.userType == 'OWNER' || user1.userType == 'ADMIN') {
+        if(user1.userType == 'OWNER') {
 
             if (user1.owner.endorses.filter(user => user.equals(user2._id)).length > 0)
                 return res.status(400).json({alreadyFollows: 'User already endorses the user'});
@@ -378,7 +357,7 @@ router.post('/:id1/endorse/:id2', async (req, res) => {
 
 
 
-        } else if(user1.userType == 'CRITIC' || user1.userType == 'ADMIN') {
+        } else if(user1.userType == 'CRITIC') {
 
             if (user1.critic.endorses.filter(user => user.equals(user2._id)).length > 0)
                 return res.status(400).json({alreadyFollows: 'User already endorses the user'});
@@ -424,7 +403,7 @@ router.post('/:id1/unendorse/:id2', async (req, res) => {
 
         if (!user1 || !user2) return res.status(404).send('user not found');
 
-        if (user1.userType == "OWNER" || user1.userType == "ADMIN") {
+        if (user1.userType == "OWNER") {
 
             if (user1.owner.endorses.filter(user => user.equals(user2._id)).length == 0)
                 return res.status(400).json({doesNotEndorse: 'Owner does not endorse this user'});
@@ -459,7 +438,7 @@ router.post('/:id1/unendorse/:id2', async (req, res) => {
 
             } else return res.status(400).json({unEndorseError: 'cannot unendorse this user'});
 
-        } else if (user1.userType == "CRITIC" || user1.userType == "ADMIN") {
+        } else if (user1.userType == "CRITIC") {
             if (user1.critic.endorses.filter(user => user.equals(user2._id)).length == 0)
                 return res.status(400).json({doesNotEndorse: 'Critic does not endorse the Owner'});
 
@@ -527,7 +506,7 @@ router.post('/:id1/follow/:id2', async (req, res) => {
         // console.log(user2.userType);
         if (!user1 || !user2) return res.status(404).send('user not found');
 
-        if (user1.userType == 'REGISTERED' || user1.userType == 'ADMIN') {
+        if (user1.userType == 'REGISTERED') {
             // user1.registeredUser.follows = [];
 
             // if(user1.registeredUser.follows.filter())
@@ -564,7 +543,7 @@ router.post('/:id1/follow/:id2', async (req, res) => {
         //
         // critic follows a critic
 
-        else if ((user1.userType == 'CRITIC' || user1.userType == 'ADMIN') && user2.userType == 'CRITIC' ) {
+        else if ((user1.userType == 'CRITIC') && user2.userType == 'CRITIC' ) {
 
             if (user1.critic.follows.filter(user => user.equals(user2._id)).length > 0)
                 return res.status(400).json({alreadyFollows: 'User already follows the user'});
@@ -578,7 +557,7 @@ router.post('/:id1/follow/:id2', async (req, res) => {
             }
         }
         // owner follows a critic
-        else if ((user1.userType == 'OWNER' || user1.userType == 'ADMIN') && user2.userType == 'CRITIC') {
+        else if ((user1.userType == 'OWNER') && user2.userType == 'CRITIC') {
             console.log('owner as first user')
             console.log('critic the second')
             if (user1.owner.follows.filter(user => user.equals(user2._id)).length > 0)
@@ -627,7 +606,7 @@ router.post('/:id1/unfollow/:id2', async (req, res) => {
         // console.log(user2.userType);
         if (!user1 || !user2) return res.status(404).send('user not found');
 
-        if (user1.userType == 'REGISTERED' || user1.userType == 'ADMIN') {
+        if (user1.userType == 'REGISTERED') {
             // user1.registeredUser.follows = [];
 
             // if(user1.registeredUser.follows.filter())
@@ -688,7 +667,7 @@ router.post('/:id1/unfollow/:id2', async (req, res) => {
         //
         // critic follows a critic
 
-        else if ((user1.userType == 'CRITIC' || user1.userType == 'ADMIN') && user2.userType == 'CRITIC') {
+        else if ((user1.userType == 'CRITIC') && user2.userType == 'CRITIC') {
             if (user1.critic.follows.filter(user => user.equals(user2._id)).length == 0)
                 return res.status(400).json({NotFollows: 'User doesnt follow the user'});
             else {
@@ -714,7 +693,7 @@ router.post('/:id1/unfollow/:id2', async (req, res) => {
             return res.json(user1);
         }
         // owner follows a critic
-        else if ((user1.userType == 'OWNER' || user1.userType == 'ADMIN') && user2.userType == 'CRITIC') {
+        else if ((user1.userType == 'OWNER') && user2.userType == 'CRITIC') {
 
             if (user1.owner.follows.filter(user => user.equals(user2._id)).length == 0)
                 return res.status(400).json({alreadyFollows: 'User doesnt user'});
@@ -766,12 +745,7 @@ router.get('/:id/follows', async (req, res) => {
 
         if (!user) return res.status(404).send("User not found");
 
-        else if(user.userType == 'ADVERTISER') {
-
-            return res.status(404).json({followError: 'advertiser does not have followers'});
-        }
-
-        else if(user.userType == 'REGISTERED' || user.userType == 'ADMIN') {
+        else if(user.userType == 'REGISTERED') {
             console.log('registered');
             let follows = user.registeredUser.follows;
             console.log(follows);
@@ -789,7 +763,7 @@ router.get('/:id/follows', async (req, res) => {
 
         }
 
-        else if(user.userType == 'CRITIC' || user.userType == 'ADMIN') {
+        else if(user.userType == 'CRITIC') {
             console.log('critic');
             let follows = user.critic.follows;
             console.log(follows);
@@ -807,7 +781,7 @@ router.get('/:id/follows', async (req, res) => {
 
         }
 
-        else if(user.userType == 'OWNER' || user.userType == 'ADMIN') {
+        else if(user.userType == 'OWNER') {
 
             console.log('owner');
             let follows = user.owner.follows;
@@ -843,12 +817,12 @@ router.get('/:id/followedby', async (req, res) => {
 
         if (!user) return res.status(404).send("User not found");
 
-        else if(user.userType == 'ADVERTISER' || user.userType == 'OWNER') {
+        else if(user.userType == 'OWNER') {
 
             return res.status(404).json({followError: 'User is not followed by others'});
         }
 
-        else if(user.userType == 'REGISTERED' || user.userType == 'ADMIN') {
+        else if(user.userType == 'REGISTERED') {
             console.log('registered User type')
             let followedBy = user.registeredUser.followedBy;
 
@@ -863,7 +837,7 @@ router.get('/:id/followedby', async (req, res) => {
             return res.json(followedBy);
         }
 
-        else if(user.userType == 'CRITIC' || user.userType == 'ADMIN') {
+        else if(user.userType == 'CRITIC') {
             let followedBy = user.critic.followedBy;
             // let followedbyArr = [];
             //
@@ -899,11 +873,11 @@ router.get('/:id/endorses', async (req, res) => {
 
         if (!user) return res.status(404).send("User not found");
 
-        else if (user.userType == 'OWNER' || user.userType == 'CRITIC' || user.userType == 'ADMIN') {
-            if(user.userType == 'OWNER' || user.userType == 'ADMIN') {
+        else if (user.userType == 'OWNER' || user.userType == 'CRITIC') {
+            if(user.userType == 'OWNER') {
                 let endorses = user.owner.endorses;
                 return res.json(endorses);
-            } else if(user.userType == 'CRITIC' || user.userType == 'ADMIN'){
+            } else {
                 let endorses = user.critic.endorses;
                 return res.json(endorses);
             }
@@ -931,7 +905,7 @@ router.get('/:id/endorsedBy', async (req, res) => {
 
         if (!user) return res.status(404).send("User not found");
 
-        else if (user.userType == 'OWNER' || user.userType == 'ADMIN') {
+        else if (user.userType == 'OWNER') {
             let endorsedBy = user.owner.endorsedBy;
             return res.json(endorsedBy);
 
@@ -967,7 +941,7 @@ router.post('/:id1/favorites/:id2', async (req, res) => {
 
 
 
-        if(user.userType == "REGISTERED" || user.userType == "ADMIN") {
+        if(user.userType == "REGISTERED") {
             if (user.registeredUser.favourites.filter(rest => rest.equals(restId._id)).length > 0)
                 return res.status(400).json({alreadyFavorite: 'User already has the restaurant as favorite'});
             else {
@@ -1008,7 +982,7 @@ router.post('/:id1/unfavorites/:id2', async(req, res) => {
 
         if (!restId) return res.status(404).send("Restaurant not found");
 
-        if(user.userType == "REGISTERED" || user.userType == "ADMIN") {
+        if(user.userType == "REGISTERED") {
             if (user.registeredUser.favourites.filter(rest => rest.equals(restId._id)).length == 0)
                 return res.status(400).json({alreadyFavorite: 'User does not have the restaurant as favorite'});
 
@@ -1046,7 +1020,7 @@ router.get('/:id/favorites', async(req, res) => {
 
         if(!user) return res.status(404).send("User not found");
 
-        if(user.userType == 'REGISTERED' || user.userType == 'ADMIN') {
+        if(user.userType == 'REGISTERED') {
             let favorites = user.registeredUser.favourites;
             return res.json(favorites);
 
@@ -1078,7 +1052,7 @@ router.post('/:userid/owns/:restid', async (req, res) => {
         rest = rest[0];
 
 
-        if(user.userType == "OWNER" || user.userType == "ADMIN")
+        if(user.userType == "OWNER")
         {
 
             if(!user.owner.restaurant) {
@@ -1122,7 +1096,7 @@ router.post('/:userid/disown/:restid', async (req, res) => {
 
         if(!user) return res.status(404).send("User not found");
 
-        if(user.userType == "OWNER" || user.userType == "ADMIN") {
+        if(user.userType == "OWNER") {
             if(user.owner.restaurant) {
 
                 if(rest.is_claimed) {
@@ -1168,7 +1142,7 @@ router.get('/getowned/:id', async (req, res) => {
         if(!user) return res.status(404).send("User not found");
 
 
-        if(user.userType == "OWNER" || user.userType == "ADMIN") {
+        if(user.userType == "OWNER") {
 
             let restaurant = await Restaurant.find({ _id: user.owner.restaurant});
             restaurant = restaurant[0];
@@ -1180,32 +1154,6 @@ router.get('/getowned/:id', async (req, res) => {
         }
 
         else return res.json({illegalUserType: 'This User Type is not allowed to own restaurants'});
-
-    }
-    catch(err) {
-        console.log(err);
-        res.status(400).send(err);
-    }
-});
-
-
-router.get('/getads/:id', async (req, res) => {
-    try {
-        let user = await User.find({_id: req.params.id});
-        user = user[0];
-
-        if(!user) return res.status(404).send("User not found");
-
-
-        if(user.userType == "ADVERTISER" || user.userType == "ADMIN"){
-            let advertisement = await Advertisement.find({advertiser: req.params.id});
-
-            if(advertisement.length > 0)
-                return res.json(advertisement);
-            else
-                return res.status(400).send("DOESNT HAVE ADVERTISEMENT");
-        }
-        else return res.json({illegalUserType: 'This User Type is not allowed to have advertisements'});
 
     }
     catch(err) {

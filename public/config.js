@@ -43,10 +43,6 @@
                 templateUrl: "./views/restaurants.view.html",
                 controller: "RestaurantsController"
             })
-            .when("/admin", {
-                templateUrl: "./views/admin.view.html",
-                controller: "AdminController"
-            })
             .when("/create-restaurant", {
                 templateUrl: "./views/create-restaurant.view.html",
                 controller: "CreateRestaurantController"
