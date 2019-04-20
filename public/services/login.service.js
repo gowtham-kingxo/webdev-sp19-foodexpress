@@ -5,7 +5,7 @@
 
     function loginService($http, $cookies) {
        var user = null;
-       var url  = "http://localhost:5000/api/user/login"
+       var url  = "http://localhost:5000/api/profile/login"
         var api = {
            setCookieData: setCookieData,
            getCookieData: getCookieData,
