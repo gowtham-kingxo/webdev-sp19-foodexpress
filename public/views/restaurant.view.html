@@ -11,147 +11,9 @@
   ============================= BOOKING DETAILS =============================
 -->
 <section class="light-bg booking-details_wrap">
-<<<<<<< HEAD
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 responsive-wrap">
-        <div class="booking-checkbox_wrap">
-          <div class="row">
-            <div class="col-md-4">
-              <label class="custom-checkbox">
-                <span class="ti-check-box"></span>
-                <span class="custom-control-description">Bike Parking</span>
-              </label>
-            </div>
-            <div class="col-md-4">
-              <label class="custom-checkbox">
-                <span class="ti-check-box"></span>
-                <span class="custom-control-description"
-                  >Wireless Internet
-                </span>
-              </label>
-            </div>
-            <div class="col-md-4">
-              <label class="custom-checkbox">
-                <span class="ti-check-box"></span>
-                <span class="custom-control-description">Smoking Allowed </span>
-              </label>
-            </div>
-            <div class="col-md-4">
-              <label class="custom-checkbox">
-                <span class="ti-check-box"></span>
-                <span class="custom-control-description">Street Parking</span>
-              </label>
-            </div>
-            <div class="col-md-4">
-              <label class="custom-checkbox">
-                <span class="ti-check-box"></span>
-                <span class="custom-control-description">Special</span>
-              </label>
-            </div>
-            <div class="col-md-4">
-              <label class="custom-checkbox">
-                <span class="ti-check-box"></span>
-                <span class="custom-control-description"
-                  >Accepts Credit cards</span
-                >
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="booking-checkbox_wrap mt-4">
-          <h5>Customer Reviews</h5>
-          <div ng-repeat="review in reviews">
-            <hr>
-            <div class="customer-review_wrap">
-              <div class="customer-img">
-                <img
-                  src="../images/customer-img1.jpg"
-                  class="img-fluid"
-                  height="100" width="100"
-                  alt="#"
-                />
-                <p>{{review.user.username}}</p>
-                <p>{{review.user.userType}}</p>
-              </div>
-              <div class="customer-content-wrap">
-                  <div class="customer-content">
-                      <div class="customer-review">
-                        <h6 style="padding-left: 5px;">{{ review.restaurant.name }}</h6>
-                        <p>Reviewed on {{ review.time_created | date: 'short' }}</p>
-                      </div>
-                      <div class="customer-rating">{{ review.rating }}</div>
-                    </div>
-                <p class="customer-text">
-                {{review.text}}
-                </p>
-                <a href="#"><span class="icon-like"></span>Helpful</a>
-              </div>
-            </div>
-          </div>
-=======
     <div class="container">
         <div class="row">
             <div class="col-md-8 responsive-wrap">
-
-                <!-- Critic review Section -->
-                <!-- <div class="booking-checkbox_wrap mt-4">
-                    <h5>Critic Reviews</h5>
-                    <div ng-repeat="review in reviews">
-                      <hr>
-                      <div class="customer-review_wrap">
-                        <div class="customer-img">
-                          <img
-                            src="../images/customer-img1.jpg"
-                            class="img-fluid"
-                            alt="#"
-                          />
-                          <p>{{review.user.username}}</p>
-                          <span>00 Reviews</span>
-                        </div>
-                        <div class="customer-content-wrap">
-                          <div class="customer-content">
-                            <div class="customer-review">
-                              <h6>Best noodles in the Newyork city</h6>
-                              <span></span> <span></span> <span></span> <span></span>
-                              <span class="round-icon-blank"></span>
-                              <p>Reviewed on {{review.date | date: 'medium'}}</p>
-                            </div>
-                            <div class="customer-rating">{{review.rating}}</div>
-                          </div>
-                          <p class="customer-text">
-                          {{review.text}}
-                          </p>
-                          <ul>
-                            <li>
-                              <img
-                                src="../images/review-img1.jpg"
-                                class="img-fluid"
-                                alt="#"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../images/review-img2.jpg"
-                                class="img-fluid"
-                                alt="#"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../images/review-img3.jpg"
-                                class="img-fluid"
-                                alt="#"
-                              />
-                            </li>
-                          </ul>
-                          <span>28 people marked this review as helpful</span>
-                          <a href="#"><span class="icon-like"></span>Helpful</a>
-                        </div>
-                      </div>
-                    </div>
-                </div> -->
                 <div class="booking-checkbox_wrap mt-4">
                     <h5>Customer Reviews</h5>
                     <div ng-repeat="review in reviews">
@@ -163,6 +25,7 @@
                                     <img
                                             src="../images/customer-img1.jpg"
                                             class="img-fluid"
+                                            height="100" width="100"
                                             alt="#"
                                     />
                                     <p>{{review.user.username}}</p>
@@ -175,6 +38,7 @@
                                     <img
                                             src="../images/customer-img1.jpg"
                                             class="img-fluid"
+                                            height="100" width="100"
                                             alt="#"
                                     />
                                     <p>{{review.user.username}}</p>
@@ -196,29 +60,6 @@
                                 <p class="customer-text">
                                     {{review.text}}
                                 </p>
-                                <!-- <ul>
-                                  <li>
-                                    <img
-                                      src="../images/review-img1.jpg"
-                                      class="img-fluid"
-                                      alt="#"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="../images/review-img2.jpg"
-                                      class="img-fluid"
-                                      alt="#"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="../images/review-img3.jpg"
-                                      class="img-fluid"
-                                      alt="#"
-                                    />
-                                  </li>
-                                </ul> -->
                             </div>
                         </div>
                     </div>
@@ -265,30 +106,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="follow">
-                  <div class="follow-img">
-                    <img src="../images/follow-img.jpg" class="img-fluid" alt="#" />
-                    <h6>Owner</h6>
-                    <span>New York</span>
-                  </div>
-                  <ul class="social-counts">
-                    <li>
-                      <h6>26</h6>
-                      <span>Listings</span>
-                    </li>
-                    <li>
-                      <h6>326</h6>
-                      <span>Followers</span>
-                    </li>
-                    <li>
-                      <h6>12</h6>
-                      <span>Followers</span>
-                    </li>
-                  </ul>
-                  <a href="#">FOLLOW</a>
-                </div> -->
             </div>
->>>>>>> 87a7abc0048f7486b8ee85a9b7b1b57995aa47d4
         </div>
     </div>
 </section>
