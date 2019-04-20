@@ -18,12 +18,20 @@
 
             }
 
-            function goToProfile() {
-                // body
-                console.log("in header go to profile")
-                let user = JSON.parse(LoginService.getCookieData())
-                $location.url("/profile/" + user._id);
-            }
-            
-        });
+            // function goToProfile() {
+            //     // body
+            //     console.log("in header go to profile")
+            //     let user = JSON.parse(LoginService.getCookieData())
+            //     $location.url("/profile/" + user._id);
+            // }
+
+        //     function goToProfile() {
+        //         // body
+        //         console.log("in header go to profile")
+        //         let user = JSON.parse(LoginService.getCookieData())
+        //
+        //         $location.url("/profile");
+        //     }
+        //
+        // });
 })();

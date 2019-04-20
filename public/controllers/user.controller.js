@@ -16,6 +16,9 @@
       AdvertisementService,
       EventService
     ) {
+
+        console.log("in user controller");
+
       $scope.getLoggedInUser = getLoggedInUser();
       //$scope.getProfileUser = getProfileUser();
       $scope.reviewsLoading = true;
@@ -56,7 +59,7 @@
       // view Advertisements
       // delete Advertisements
 
-        console.log("in user controller");
+
 
       function getLoggedInUser() {
         // body
@@ -72,7 +75,12 @@
 
       function getProfileUser() {
         let id = $routeParams.userId;
-        UserService.getUser(id)
+        let id2 = $scope.loggedUser._id
+
+
+         console.log(" id from params: "+ id +" id from scope: "+id2)
+
+        UserService.getUser(id2)
           .then(function(response) {
             $scope.user = response.data.user;
             $scope.userType = $scope.user.userType;

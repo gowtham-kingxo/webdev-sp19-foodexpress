@@ -97,5 +97,10 @@
       function viewUser(user){
           $location.url("/profile/" + user._id);
       }
+
+        // function viewUser(user){
+        //     $location.url("/profile");
+        // }
+
     });
 })();

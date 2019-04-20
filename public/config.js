@@ -31,7 +31,7 @@
                 templateUrl: "./views/register.view.html",
                 controller: "RegisterController"
             })
-            .when("/profile/:userId", {
+            .when("/profile", {
                 templateUrl: "./views/profile.view.html",
                 controller: "UserController"
             })
