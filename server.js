@@ -41,7 +41,6 @@ app.use('/api/review', review);
 app.use('/api/advertisement', advertisement);
 app.use('/api/featured', featured);
 
-app.use('/*', function (req, res) {
-    console.log("entered")
-    res.sendFile('public/index.html', {root: __dirname});
+app.use(function(req, res) {
+    res.sendfile(__dirname + '/public/index.html');
 });
