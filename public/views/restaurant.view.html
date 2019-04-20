@@ -13,59 +13,6 @@
 <section class="light-bg booking-details_wrap">
     <div class="container">
         <div class="row">
-            <div class="col-md-8 responsive-wrap">
-                <div class="booking-checkbox_wrap mt-4">
-                    <h5>Customer Reviews</h5>
-                    <div ng-repeat="review in reviews">
-                        <hr/>
-                        <div class="customer-review_wrap">
-                            <!--User is from database-->
-                            <div ng-if="review.user._id">
-                                <a class="customer-img" ng-href="/user/{{review.user._id}}">
-                                    <img
-                                            src="../images/customer-img1.jpg"
-                                            class="img-fluid"
-                                            height="100" width="100"
-                                            alt="#"
-                                    />
-                                    <p>{{review.user.username}}</p>
-                                    <p>{{review.user.userType}}</p>
-                                </a>
-                            </div>
-                            <!--User is from API-->
-                            <div ng-if="!review.user._id">
-                                <a class="customer-img">
-                                    <img
-                                            src="../images/customer-img1.jpg"
-                                            class="img-fluid"
-                                            height="100" width="100"
-                                            alt="#"
-                                    />
-                                    <p>{{review.user.username}}</p>
-                                    <p>{{review.user.userType}}</p>
-                                </a>
-                            </div>
-                            <div class="customer-content-wrap">
-                                <div class="customer-content">
-                                    <div class="customer-review">
-                                        <h6 style="padding: 5px;">{{ review.restaurant.name }}</h6>
-                                        <!--
-                                          <span></span> <span></span> <span></span> <span></span>
-                                          <span class="round-icon-blank"></span>
-                                        -->
-                                        <p>Reviewed on {{ review.time_created | date: 'short' }}</p>
-                                    </div>
-                                    <div class="customer-rating">{{ review.rating }}</div>
-                                </div>
-                                <p class="customer-text">
-                                    {{review.text}}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
             <div class="col-md-4 responsive-wrap">
                 <div class="contact-info">
                     <img src="{{restaurant.image_url}}" class="img-fluid" alt="#"/>
@@ -106,6 +53,60 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-8 responsive-wrap">
+                <div class="booking-checkbox_wrap mt-4">
+                    <h5>Customer Reviews</h5>
+                    <div ng-repeat="review in reviews">
+                        <hr/>
+                        <div class="customer-review_wrap">
+                            <!--User is from database-->
+                            <div ng-if="review.user._id">
+                                <a class="customer-img" ng-href="/user/{{review.user._id}}">
+                                    <img
+                                            src="../images/customer-img1.jpg"
+                                            class="img-fluid"
+                                            height="100" width="100"
+                                            alt="#"
+                                    />
+                                    <p>{{review.user.username}}</p>
+                                    <p>{{review.user.userType}}</p>
+                                </a>
+                            </div>
+                            <!--User is from API-->
+                            <div ng-if="!review.user._id">
+                                <a class="customer-img">
+                                    <img
+                                            src="../images/customer-img1.jpg"
+                                            class="img-fluid"
+                                            height="100" width="100"
+                                            alt="#"
+                                    />
+                                    <p>{{review.user.username}}</p>
+                                    <p>{{review.user.userType}}</p>
+                                </a>
+                            </div>
+                            <div class="customer-content-wrap">
+                                <div class="customer-content">
+                                    <div class="customer-review">
+                                        <h6 style="padding: 5px;">{{ review.restaurant.name }}</h6>
+                                        <!--
+                                          <span></span> <span></span> <span></span> <span></span>
+                                          <span class="round-icon-blank"></span>
+                                        -->
+                                        <p style = "padding:0.2em">Reviewed on {{ review.time_created.substring(0,25) | date: 'short' }}</p>
+                                    </div>
+                                    <div class="customer-rating">{{ review.rating }}</div>
+                                </div>
+                                <p class="customer-text">
+                                    {{review.text}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </div>
 </section>
