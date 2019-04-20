@@ -66,7 +66,8 @@
                                   <span></span> <span></span> <span></span> <span></span>
                                   <span class="round-icon-blank"></span>
                                 -->
-                                <p class="text-padding button-margin">Reviewed on {{ review.time_created | date: "short" }}</p>
+                                <p class="text-padding button-margin">Reviewed on {{ review.time_created | date: "short"
+                                    }}</p>
                             </div>
                             <div class="customer-rating">{{ review.rating }}</div>
                         </div>
@@ -348,7 +349,11 @@
 <!-- and should user to follow CRITIC -->
 <section
         class="light-bg booking-details_wrap"
+<<<<<<< HEAD
         ng-if="loggedUser._id != user._id && userType == 'CRITIC' && (loggedUserType == 'REGISTERED' || loggedUser == null)"
+=======
+        ng-if="loggedUser._id != user._id && userType == 'CRITIC' && (loggedUserType == 'REGISTERED'|| loggedUser == null)"
+>>>>>>> master
 >
     <div class="container">
         <div class="row">
@@ -667,7 +672,7 @@
                                   <span></span> <span></span> <span></span> <span></span>
                                   <span class="round-icon-blank"></span>
                                 -->
-                                <p>{{ event.start_time}}-{{ event.end_time }}</p>
+                                <p>{{ event.start_time}} ~ {{ event.end_time }}</p>
                             </div>
                             <div class="customer-rating"> {{ event.price }}$</div>
                         </div>
@@ -676,85 +681,6 @@
                         <br/>
                     </div>
                     <div class="spinner" ng-if="eventsLoading">
-                        <div class="double-bounce1"></div>
-                        <div class="double-bounce2"></div>
-                    </div>
-                    <hr/>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!--
-  ============================= Section Break =============================
--->
-
-<!-- ANY USER is viewing Another ADVERTISER USER PROFILE -->
-<!-- Every user will this view for advertisements -->
-<!-- Just view his advertisements -->
-<section
-        class="light-bg booking-details_wrap"
-        ng-if="loggedUser._id != user._id && userType == 'ADVERTISER'"
->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 responsive-wrap">
-                <div class="follow">
-                    <div class="follow-img" style="text-align: center">
-                        <br/>
-                        <br/>
-                        <img
-                                src="../images/follow-img.jpg"
-                                class="img-fluid"
-                                style="border-radius: 50%;"
-                                alt="#"
-                        />
-                        <br/>
-                        <br/>
-                        <h6>{{ user.username | uppercase }}</h6>
-                        <span>{{ user.address.city | uppercase }}</span>
-                        <span>{{ user.userType }}</span>
-                    </div>
-                    <br/>
-
-                    <ul class="social-counts" ng-if="!advertisementsLoading">
-                        <li>
-                            <h6>{{ advertisements.length }}</h6>
-                            <span>Advertisements</span>
-                        </li>
-                    </ul>
-                    <div class="spinner" ng-if="advertisementsLoading">
-                        <div class="double-bounce1"></div>
-                        <div class="double-bounce2"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8 responsive-wrap">
-                <div class="main-block light-bg">
-                    <h5>Advertisement</h5>
-                    <div
-                            ng-repeat="advertisement in advertisements"
-                            ng-if="!advertisementLoading"
-                    >
-                        <hr/>
-                        <div class="row">
-
-
-                            <div class="col-md-6">{{ advertisement.text}}</div>
-                            <div class="col-md-6">{{ advertisement.posted_on }}</div>
-                            <!-- <div class="col-md-4">
-                              <button
-                                class="btn btn-danger"
-                                ng-click="deleteAdvertisement(advertisement, $index)"
-                              >
-                                Delete Advertisement
-                              </button>
-                            </div> -->
-
-                        </div>
-                    </div>
-                    <div class="spinner" ng-if="advertisementLoading">
                         <div class="double-bounce1"></div>
                         <div class="double-bounce2"></div>
                     </div>
@@ -1479,7 +1405,7 @@
                                   <span></span> <span></span> <span></span> <span></span>
                                   <span class="round-icon-blank"></span>
                                 -->
-                                <p>{{ event.start_time}}-{{ event.end_time }}</p>
+                                <p>{{ event.start_time}} ~ {{ event.end_time }}</p>
                             </div>
                             <div class="customer-rating"> {{ event.price }}$</div>
                         </div>
@@ -1692,7 +1618,7 @@
                                   <span></span> <span></span> <span></span> <span></span>
                                   <span class="round-icon-blank"></span>
                                 -->
-                                <p>{{ event.start_time}}-{{ event.end_time }}</p>
+                                <p>{{ event.start_time}} ~ {{ event.end_time }}</p>
                             </div>
                             <div class="customer-rating">{{ event.price }}$</div>
                         </div>
@@ -1882,7 +1808,7 @@
                                   <span></span> <span></span> <span></span> <span></span>
                                   <span class="round-icon-blank"></span>
                                 -->
-                                <p>{{ event.start_time}}-{{ event.end_time }}</p>
+                                <p>{{ event.start_time}} ~ {{ event.end_time }}</p>
                             </div>
                             <div class="customer-rating"> {{ event.price }}$</div>
                         </div>
@@ -2264,6 +2190,7 @@
 
 <!--
   ============================= Section Break =============================
+<<<<<<< HEAD
 -->
 
 <!-- Advertiser is viewing his profile -->
@@ -2851,3 +2778,6 @@
         </div>
     </div>
 </section>
+=======
+-->
+>>>>>>> master

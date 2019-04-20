@@ -28,10 +28,10 @@
             class="form-group"
             ng-class="{ 'has-error': form.event-description.$error.required }"
           >
-            <label for="description">Description</label>
+            <label for="event-text">Description</label>
             <textarea
               name="event-description"
-              id="advertisment-text"
+              id="event-text"
               class="form-control"
               ng-model="newEvent.description"
               required
@@ -54,9 +54,6 @@
               class="form-control"
               ng-model="newEvent.start_time"
             />
-            <span ng-show="form.start_time.$dirty " class="help-block"
-              >start_time error</span
-            >
           </div>
           <div
             class="form-group"
@@ -70,9 +67,6 @@
               class="form-control"
               ng-model="newEvent.end_time"
             />
-            <span ng-show="form.end_time.$dirty " class="help-block"
-              >end_time error</span
-            >
           </div>
           <div
             class="form-group"

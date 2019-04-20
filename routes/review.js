@@ -180,7 +180,7 @@ router.delete("/:reviewId/comment/:commentId", async (req, res) => {
         if (!user) return res.status(404).send("User not found");
         console.log("comment user id is", userIdOfCommentToBeDeleted);
         console.log("user id is", userId);
-        if (userId != userIdOfCommentToBeDeleted && user.userType != "ADMIN") return res.status(404).send("Invalid request");
+        if (userId != userIdOfCommentToBeDeleted) return res.status(404).send("Invalid request");
         Review.updateOne(
             {_id: reviewId},
             {

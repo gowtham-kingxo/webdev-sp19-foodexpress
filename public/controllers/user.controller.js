@@ -13,7 +13,6 @@
             ReviewService,
             RestaurantService,
             $mdDialog,
-            AdvertisementService,
             EventService
         ) {
 
@@ -29,7 +28,6 @@
             $scope.endorsedByLoading = true;
             $scope.loggedEndorsesLoading = true;
             $scope.ownerRestaurant = null;
-            $scope.advertisements = [];
             //   $scope.getUserReviews = getUserReviews();
             //   $scope.getUserFollows = getUserFollows();
             //   $scope.getUserFollowedBy = getUserFollowedBy();
@@ -54,13 +52,6 @@
             // 2. endorsedBy (Critic)
             // 3. endorses (Owner)
             // 4. restaurant
-            // Advertiser
-            // create Advertisements
-            // view Advertisements
-            // delete Advertisements
-
-
-
             function getLoggedInUser() {
                 // body
                 $scope.loggedUser = JSON.parse(LoginService.getCookieData());
@@ -96,7 +87,6 @@
                         getLoggedInUserEndorses();
                         getUserEndorsedBy();
                         getOwnerRestaurant();
-                        getAdvertisements();
                         getEventsForUser();
                     })
                     .catch(function(err) {
@@ -573,78 +563,9 @@
                 );
             };
 
-            function getAdvertisements() {
-                if ($scope.userType == "ADVERTISER") {
-                    UserService.getAdvertisementsForUser($scope.user._id).then(
-                        function(response) {
-                            console.log("fetching advertisements", response.data);
-                            $scope.advertisements = response.data;
-                            $scope.advertisementsLoading = false;
-                        },
-                        function(err) {
-                            console.log(err);
-                        }
-                    );
-                }
-            }
-
-            $scope.updateUser = function updateUser(){
+            $scope.updateUser = function updateUser() {
                 $location.url('update-user' + "/" + $scope.loggedUser._id);
             }
-
-            $scope.deleteAdvertisement = function deleteAdvertisement(
-                advertisement,
-                index
-            ) {
-                AdvertisementService.deleteAdvertisement(advertisement._id).then(
-                    function(response) {
-                        $scope.advertisements.splice(index, 1);
-                    },
-                    function(err) {
-                        console.log(err);
-                    }
-                );
-            };
-
-            $scope.updateAdvertisement = function updateAdvertisement(
-                advertisement,
-                index
-            ) {
-                $mdDialog.show({
-                    controller: "UpdateAdvertisementController",
-                    templateUrl: "../views/create-advertisement.dialog.view.html",
-                    parent: angular.element(document.body),
-                    clickOutsideToClose: false,
-                    scope: $scope,
-                    preserveScope: true,
-                    locals: {
-                        advertisement: advertisement,
-                        index: index
-                    }
-                });
-
-
-
-
-
-            };
-
-            $scope.createAdvertisement = function createAdvertisement() {
-                console.log("in heres");
-                $mdDialog.show({
-                    controller: "AdvertisementController",
-                    templateUrl: "../views/create-advertisement.dialog.view.html",
-                    parent: angular.element(document.body),
-                    clickOutsideToClose: false,
-                    scope: $scope,
-                    preserveScope: true
-                    // locals: {
-                    //   review: review,
-                    //   index: index
-                    // }
-                });
-            };
-
             function getEventsForUser() {
                 if ($scope.userType == "OWNER") {
                     let userId = $scope.user._id;
@@ -760,45 +681,8 @@
             };
         })
 
-        .controller("AdvertisementController", function(
-            $scope,
-            $mdDialog,
-            AdvertisementService
-        ) {
-            let date = new Date();
-            date = date.toString();
-            $scope.type = "Create";
-            $scope.dataLoading = false;
-            $scope.newAdvertisment = {
-                advertiser: $scope.loggedUser._id,
-                text: $scope.text,
-                posted_on: date,
-                image_url: "",
-                url: $scope.url
-            };
-            $scope.postAdvertisement = function postAdvertisement() {
-                // body
-                $scope.dataLoading = true;
-                console.log("advertisment being posted is", $scope.newAdvertisment);
-                AdvertisementService.createAdvertisement($scope.newAdvertisment).then(
-                    function(response) {
-                        $scope.advertisements.push(response.data);
-                        $mdDialog.cancel();
-                    },
-                    function(err) {
-                        console.log(err);
-                        $mdDialog.cancel();
-                    }
-                );
-            };
+        .controller("UpdateEventController", function (
 
-            $scope.cancel = function cancel() {
-                // body
-                $mdDialog.cancel();
-            };
-        })
-
-        .controller("UpdateEventController", function(
             $scope,
             $mdDialog,
             EventService,
@@ -895,48 +779,6 @@
                     function(err) {
                         console.log(err);
                         $mdDialog.cancel();
-                    }
-                );
-            };
-
-            $scope.cancel = function cancel() {
-                // body
-                $mdDialog.cancel();
-            };
-        })
-
-
-        .controller("UpdateAdvertisementController", function(
-            $scope,
-            $mdDialog,
-            AdvertisementService,
-            advertisement,
-            index
-        ) {
-            let date = new Date();
-            date = date.toString();
-            $scope.type = "Update";
-            $scope.dataLoading = false;
-            $scope.newAdvertisment = {
-                advertiser: $scope.loggedUser._id,
-                text: advertisement.text,
-                posted_on: advertisement.posted_on,
-                image_url: "",
-                url: advertisement.url
-            };
-            $scope.postAdvertisement = function postAdvertisement() {
-                // body
-                $scope.dataLoading = true;
-                console.log("advertisment being posted is", $scope.newAdvertisment);
-                AdvertisementService.updateAdvertisement(advertisement._id,$scope.newAdvertisment).then(
-                    function(response) {
-                        $scope.advertisements.splice(index, 1);
-                        $scope.advertisements.push(response.data);
-                        $mdDialog.cancel();
-                    },
-                    function(err) {
-                        $mdDialog.cancel()
-                        console.log(err);
                     }
                 );
             };

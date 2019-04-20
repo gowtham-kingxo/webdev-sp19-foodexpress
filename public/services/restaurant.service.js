@@ -36,9 +36,11 @@
         function removeRestaurant(id) {
             return $http.delete(baseUrl + "/" + id);
         }
+
         function createRestaurant(restaurant) {
             return $http.post(baseUrl, restaurant);
         }
+
         function updateRestaurant(id, restaurant) {
             return $http.put(baseUrl + "/" + id, restaurant);
         }
